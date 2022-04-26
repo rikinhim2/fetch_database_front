@@ -3,8 +3,8 @@
 /// <reference types="cypress" />
 
 describe('Hello world test', () => {
-  it('shows learn link', function () {
-    cy.visit('http://localhost:3000')
-    cy.get('a').should('have.text', 'hello world!')
-  })
-})
+  it('shows learn link', () => {
+    cy.visit('http://localhost:3000');
+    cy.get('a').should('have.text', 'hello world!');
+  });
+});
