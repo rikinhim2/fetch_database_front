@@ -3,7 +3,6 @@ import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers';
 import Button from '@mui/material/Button';
 
 interface DateRangePickerProps {
@@ -23,9 +22,10 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
     from: Date | null | undefined,
     to: Date | null | undefined,
   ) => {
+    callbackHandler(from, to);
     console.log(from);
     console.log(to);
-  }
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
