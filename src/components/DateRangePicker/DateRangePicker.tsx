@@ -17,16 +17,14 @@ interface DateRangePickerProps {
 const DateRangePicker: React.FC<DateRangePickerProps> = ({
   callbackHandler,
 }) => {
-  const [valueFrom, setValueFrom] = useState<Date | null>();
-  const [valueTo, setValueTo] = useState<Date | null>();
+  const [valueFrom, setValueFrom] = useState<Date | null>(new Date());
+  const [valueTo, setValueTo] = useState<Date | null>(new Date());
 
   const onClickHandler = (
     from: Date | null | undefined,
     to: Date | null | undefined,
   ) => {
     callbackHandler(from, to);
-    console.log(from);
-    console.log(to);
   };
 
   return (
@@ -56,7 +54,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
             onClickHandler(valueFrom, valueTo);
           }}
         >
-          Outlined
+          Download
         </Button>
       </LocalizationProvider>
     </div>
