@@ -8,23 +8,35 @@ import Button from '@mui/material/Button';
 import styles from './DateRangePicker.module.scss';
 
 interface DateRangePickerProps {
-  callbackHandler(
+  countCallback(
+    from: Date | null | undefined,
+    to: Date | null | undefined,
+  ): void;
+  downloadCallback(
     from: Date | null | undefined,
     to: Date | null | undefined,
   ): void;
 }
 
 const DateRangePicker: React.FC<DateRangePickerProps> = ({
-  callbackHandler,
+  countCallback,
+  downloadCallback,
 }) => {
   const [valueFrom, setValueFrom] = useState<Date | null>(new Date());
   const [valueTo, setValueTo] = useState<Date | null>(new Date());
 
-  const onClickHandler = (
+  const onClickCount = (
     from: Date | null | undefined,
     to: Date | null | undefined,
   ) => {
-    callbackHandler(from, to);
+    countCallback(from, to);
+  };
+
+  const onClickDownload = (
+    from: Date | null | undefined,
+    to: Date | null | undefined,
+  ) => {
+    downloadCallback(from, to);
   };
 
   return (
@@ -51,7 +63,15 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
         <Button
           variant="outlined"
           onClick={() => {
-            onClickHandler(valueFrom, valueTo);
+            onClickCount(valueFrom, valueTo);
+          }}
+        >
+          Count
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            onClickDownload(valueFrom, valueTo);
           }}
         >
           Download
