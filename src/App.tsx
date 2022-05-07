@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Temporal } from '@js-temporal/polyfill';
 import { saveAs } from 'file-saver';
+
 import DateRangePicker from './components/DateRangePicker';
+import Toast from './components/Toast';
 import axios from './utils/axios';
 
 function App() {
   const [count, setCount] = useState(0);
+  const [openSnack, setOpenSnack] = useState(false);
+  const [openErrorSnack, setOpenErrorSnack] = useState(false);
 
   const countCallback = async (
     from: Date | null | undefined,
@@ -27,11 +31,16 @@ function App() {
         })
       : null;
 
-    const result = await axios.get('/requestCount', {
-      params: { from: tempoFrom?.toString(), to: tempoTo?.toString() },
-    });
-
-    setCount(result.data.recordCount);
+    let result = null;
+    try {
+      result = await axios.get('/requestCount', {
+        params: { from: tempoFrom?.toString(), to: tempoTo?.toString() },
+      });
+      setCount(result.data.recordCount);
+      setOpenSnack(true);
+    } catch (error) {
+      setOpenErrorSnack(true);
+    }
   };
 
   const downloadCallback = async (
@@ -71,7 +80,18 @@ function App() {
         countCallback={countCallback}
         downloadCallback={downloadCallback}
       />
-      <h1>{count}</h1>
+      <Toast
+        message={`This is a success message! ${count} is query result`}
+        open={openSnack}
+        callback={setOpenSnack}
+        severity="success"
+      />
+      <Toast
+        message="Error! Date range is incorrect"
+        open={openErrorSnack}
+        callback={setOpenErrorSnack}
+        severity="warning"
+      />
     </>
   );
 }
