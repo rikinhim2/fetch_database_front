@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Temporal } from '@js-temporal/polyfill';
-import fileDownload from 'js-file-download';
+import { saveAs } from 'file-saver';
 import DateRangePicker from './components/DateRangePicker';
 import axios from './utils/axios';
 
@@ -56,15 +56,13 @@ function App() {
 
     const result = await axios.get('/downloadReport', {
       params: { from: tempoFrom?.toString(), to: tempoTo?.toString() },
+      responseType: 'arraybuffer',
     });
 
     const blob = new Blob([result.data], {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     });
-
-    fileDownload(blob, 'file1.xlsx');
-
-    setCount(result.data.recordCount);
+    saveAs(blob, 'report.xlsx');
   };
 
   return (
