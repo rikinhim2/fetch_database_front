@@ -43,6 +43,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
     <div className={styles.pickerBox}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
+          className={styles.datePicker}
           label="Start Date"
           value={valueFrom}
           onChange={(value) => {
@@ -52,6 +53,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
         />
         <div className={styles.hSpacer} />
         <DatePicker
+          className={styles.datePicker}
           label="End Date"
           value={valueTo}
           onChange={(value) => {
@@ -61,6 +63,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
         />
         <div className={styles.hSpacer} />
         <Button
+          className={styles.button}
           variant="outlined"
           onClick={() => {
             onClickCount(valueFrom, valueTo);
@@ -68,7 +71,9 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
         >
           Count
         </Button>
+        <div className={styles.hSpacer} />
         <Button
+          className={styles.button}
           variant="contained"
           onClick={() => {
             onClickDownload(valueFrom, valueTo);
