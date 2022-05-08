@@ -63,15 +63,19 @@ function App() {
         })
       : null;
 
-    const result = await axios.get('/downloadReport', {
-      params: { from: tempoFrom?.toString(), to: tempoTo?.toString() },
-      responseType: 'arraybuffer',
-    });
+    try {
+      const result = await axios.get('/downloadReport', {
+        params: { from: tempoFrom?.toString(), to: tempoTo?.toString() },
+        responseType: 'arraybuffer',
+      });
 
-    const blob = new Blob([result.data], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    });
-    saveAs(blob, 'report.xlsx');
+      const blob = new Blob([result.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      saveAs(blob, 'report.xlsx');
+    } catch (error) {
+      setOpenErrorSnack(true);
+    }
   };
 
   return (
@@ -81,7 +85,7 @@ function App() {
         downloadCallback={downloadCallback}
       />
       <Toast
-        message={`This is a success message! ${count} is query result`}
+        message={`${count} records are found`}
         open={openSnack}
         callback={setOpenSnack}
         severity="success"

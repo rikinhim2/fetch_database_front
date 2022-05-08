@@ -46,6 +46,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
           className={styles.datePicker}
           label="Start Date"
           value={valueFrom}
+          maxDate={new Date()}
           onChange={(value) => {
             setValueFrom(value);
           }}
@@ -56,6 +57,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
           className={styles.datePicker}
           label="End Date"
           value={valueTo}
+          maxDate={new Date()}
           onChange={(value) => {
             setValueTo(value);
           }}
